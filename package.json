@@ -1,0 +1,38 @@
+{
+  "name": "fzl-disponibilidade",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "fzl-fund-ui/packages/*",
+    "fzl-fund-ui/webcomponents-es6",
+    "fzl-fund-ui/webcomponents-lit",
+    "fzl-fund-ui/webcomponents-angular",
+    "fzl-fund-ui/appshell-lit"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build --workspace=@fzl/webcomponents-lit --if-present && npm run build --workspace=@fzl/webcomponents-es6 --if-present && vite build",
+    "preview": "vite preview",
+    "serve": "npm run build && npm run preview",
+    "icons": "appshell-generate-icons",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fzl/design-tokens": "*",
+    "@fzl/webcomponents-lit": "*",
+    "@material-symbols/font-400": "^0.47.1",
+    "@material/web": "^2.5.0",
+    "fzl-fund-appshell--lit": "*",
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "typescript": "~5.5.4",
+    "vite": "^8.0.0",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^5.0.0"
+  }
+}
