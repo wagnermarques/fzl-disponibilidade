@@ -9,6 +9,13 @@ export default defineAppShellConfig({
     textScale: { min: 1, max: 2 },
     defaults: { font: 'system', theme: 'system', textScale: 1 },
   },
+  socialAuth: {
+    enabled: true,
+    providers: 'google',
+    googleClientId: '71632020257-bunqshu7n4ein9v46amajmk21ts25b5p.apps.googleusercontent.com',
+    microsoftClientId: '',
+    requestDriveScope: false,
+  },
   analytics: {
     requireConsent: false,
   },

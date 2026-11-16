@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit'
 import { authService, navigate, notificationService } from 'fzl-fund-appshell--lit'
+import '@fzl/webcomponents-lit/social-login'
 import {
   availabilityService,
   COHORT_OPTIONS,
@@ -454,6 +455,16 @@ export class StudentAvailabilityView extends LitElement {
     URL.revokeObjectURL(url)
   }
 
+  async _handleSocialSuccess(e) {
+    const { provider, user, credential, accessToken } = e.detail || {}
+    this._feedback = null
+    try {
+      await authService.signInWithSocial({ provider: provider || 'google', user, credential, accessToken })
+    } catch (err) {
+      this._feedback = { type: 'error', message: err.message || 'Erro na autenticação com o Google.' }
+    }
+  }
+
   _renderUnauthenticated() {
     return html`
       <div class="auth-gate">
@@ -464,12 +475,24 @@ export class StudentAvailabilityView extends LitElement {
           orientações ou monitorias, é necessário entrar com a sua conta.
         </p>
 
+        <div style="max-width: 340px; margin: 0 auto 16px;">
+          <fzl-social-login
+            providers="google"
+            google-client-id="71632020257-bunqshu7n4ein9v46amajmk21ts25b5p.apps.googleusercontent.com"
+            divider-text="ou acesse com conta de aluno"
+            @fzl-social-login-success=${this._handleSocialSuccess}
+            @fzl-social-login-error=${(e) => {
+              this._feedback = { type: 'error', message: e.detail?.error || 'Erro ao entrar com Google.' }
+            }}
+          ></fzl-social-login>
+        </div>
+
         <div class="auth-actions">
-          <fzl-lit-button variant="primary" size="lg" @fzl-click=${() => navigate('conta/entrar')}>
-            Entrar na Minha Conta
+          <fzl-lit-button variant="primary" size="md" @fzl-click=${() => navigate('conta/entrar')}>
+            Entrar com E-mail
           </fzl-lit-button>
-          <fzl-lit-button variant="secondary" size="lg" @fzl-click=${() => navigate('conta/criar')}>
-            Criar Conta de Aluno
+          <fzl-lit-button variant="secondary" size="md" @fzl-click=${() => navigate('conta/criar')}>
+            Criar Conta
           </fzl-lit-button>
         </div>
 

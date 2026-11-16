@@ -44,6 +44,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_PATH: '/fzl-disponibilidade/'
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID || '71632020257-bunqshu7n4ein9v46amajmk21ts25b5p.apps.googleusercontent.com' }}
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
 
